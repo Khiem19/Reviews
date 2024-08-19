@@ -1,1 +1,1 @@
-# Reviews
+Here i will review all of my basic tech skills in C++, some of them can contain advanced too.
