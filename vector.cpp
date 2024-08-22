@@ -80,6 +80,6 @@ int main() {
 	numbers.clear(); 
 	cout << "Size after clear: " << numbers.size() << endl;
 
-
+    
     return 0;
 }
