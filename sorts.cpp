@@ -3,6 +3,12 @@
 
 using namespace std;
 
+void swapNumber(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp; 
+}
+
 void printVector(const vector<int>& arr ) {
     for(auto it = arr.begin(); it != arr.end(); it++) {
         cout << *it << " ";
@@ -11,10 +17,10 @@ void printVector(const vector<int>& arr ) {
 }
 
 void bubbleSort(vector<int>& arr) {
-    for(int i = 0; i < arr.size() -i -1; i++) {
-        for(int j = 0; j < arr.size() - 1; j++) {
+    for(int i = 0; i < arr.size() -1; i++) {
+        for(int j = 0; j < arr.size() -i -1; j++) {
             if(arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
+                swapNumber(arr[j], arr[j + 1]);
             }
         }
     }
@@ -30,14 +36,18 @@ void selectionSort(vector<int>& arr) {
             }
         }
         if(min_index != i) {
-            swap(arr[min_index], arr[i]);
+            swapNumber(arr[min_index], arr[i]);
         }
     }
 }
 
+void insertionSort(vector<int>& arr) {
+
+}
+
 int main() {
     vector<int> arr = {6, 3, 2, 1, 4, 5, 7};
-    // bubbleSort(arr);
+    bubbleSort(arr);
     //selectionSort(arr);
 
 
