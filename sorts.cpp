@@ -57,78 +57,64 @@ void insertionSort(vector<int>& arr) {
     }
 }
 
-//recursive
-void merge(vector<int>& arr, int left, int right, int mid) {
-    int n1 = mid -left +1;
-    int n2 = right - mid;
+void merge(vector<int>& leftArr, vector<int>& rightArr, vector<int>& arr) {
+    int leftSize = leftArr.size();
+    int rightSize = rightArr.size();
 
-    vector<int> leftArr(n1);
-    vector<int> rightArr(n2);
-
-    //copy arr's values
-    for(int i = 0; i < n1; i++) {
-        leftArr[i] = arr[left + i];
-    }
-    for(int i = 0; i < n2; i++) {
-        rightArr[i] = arr[mid + i + 1];
-    }
-
-    // Initial indexes of the left and right subarrays
-    int i = 0;
-    int j = 0;
-    int k = left; // Initial indexes of the left and right subarrays
-
-    // Merge the temporary arrays back into arr[left..right]
-    while(i < n1 && j< n2) {
-        if(leftArr[i] <= rightArr[j]){
-            arr[k] = leftArr[i];
+    int i = 0, l = 0, r = 0;
+    // Merge the two arrays while there are elements in both
+    while(l < leftSize && r < rightSize) {
+        if(leftArr[l] < rightArr[r]) {
+            arr[i] = leftArr[l];
             i++;
-        }else {
-            arr[k] = rightArr[j];
-            j++;
+            l++;
+        } else {
+            arr[i] = rightArr[r];
+            i++;
+            r++;
         }
-        k++;
     }
 
-    while(i < n1){
-        arr[k] = leftArr[i];
+    // Copy remaining elements of leftArray[], if any
+    while (l < leftSize) {
+        arr[i] = leftArr[l];
         i++;
-        k++;
+        l++;
     }
-
-    while(j < n2) {
-        arr[k] = rightArr[j];
-        j++;
-        k++;
+    
+    // Copy remaining elements of rightArray[], if any
+    while (r < rightSize) {
+        arr[i] = rightArr[r];
+        i++;
+        r++;
     }
-
 }
 
-void mergeSort(vector<int>& arr, int left, int right) {
-    if(left < right) {
-        int mid = left + (right - left) / 2; // Find the middle point
+void mergeSort(vector<int>& arr) {
+    int length = arr.size();
+    if(length <= 1) return;
 
-        // Recursively sort the first and second halves
-        mergeSort(arr, left, mid); // Sort left half
-        printVector(arr);
-        mergeSort(arr, mid+1, right); // Sort right half
-        printVector(arr);
-        
-        // Merge the sorted halves
-        merge(arr, left, right, mid);
-        printVector(arr);
-        cout << endl;
-    }
+    int middle = length / 2;
+
+    vector<int> leftArr(arr.begin(), arr.begin() + middle);
+    vector<int> rightArr(arr.begin() + middle, arr.end());
+
+    mergeSort(leftArr);
+    mergeSort(rightArr);
+
+    merge(leftArr, rightArr, arr);
+
 }
 
 int main() {
     vector<int> arr = {6, 3, 2, 1, 4, 5, 7};
-    printVector(arr);
+
     // bubbleSort(arr);
     // selectionSort(arr);
     // insertionSort(arr);
-    mergeSort(arr, 0, arr.size() -1);
+    // mergeSort(arr, 0, arr.size() -1);
+    mergeSort(arr);
 
-    // printVector(arr);
+    printVector(arr);
     return 0;
 }
